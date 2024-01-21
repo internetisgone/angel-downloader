@@ -1,11 +1,9 @@
-```
 。 ☆ 。   ☆。     ☆  。
  ☆。\     |     ／。 ☆
    angel downloader
 ☆。 /     |     ＼ 。 ☆ 
 。 ☆。    ☆  。   ☆。
 
-```
 simple python command line tool that downloads xiaohongshu images and videos in the highest quality possible.<br>
 
 inspired by https://github.com/iawia002/lux and https://github.com/JoeanAmier/XHS-Downloader<br>
