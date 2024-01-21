@@ -30,20 +30,22 @@ basic usage
 # download all images or video in a post
 ./angel.sh https://link.to.xhs.post
 ```
-
-option `-i` to specify image indices
+<br>
+options:
+`-i` to specify image indices
 ```
 # download the 1st and 2nd image
 ./angel.sh https://link.to.xhs.post -i 1 2 
 ```
-
-option `-s` to sanitize the url without downloading anything
+`-s` to sanitize the url without downloading anything
 ```
 # returns full url to the post, removing tracking components
 ./angel.sh https://link.to.xhs.post -s
 ```
-
 `-h` to show help
+```
+./angel.sh -h  
+```
 
 ## todo
 all kinds of exception handling<br>
