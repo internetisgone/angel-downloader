@@ -64,12 +64,10 @@ def sanitize_url(ugly_url) -> str:
     return url
 
 def validate_img_indices(num, indices) -> list:
+    indices = [i - 1 if i > 0 else i for i in indices]
     for i in indices:
-        if i > num or i < -num or i == 0:
-            # todo negative indices are kinda broken
+        if i > num or i < -num:
             indices.remove(i)
-    if len(indices) == 0:
-        return [0]
     return indices
 
 def get_page_content(url, img_indices):
@@ -115,9 +113,10 @@ def get_page_content(url, img_indices):
                     img_num = len(img_elements)
                     print(f"found {img_num} image(s)")
                     img_tokens = [meta["content"].split("/")[-1].split("!")[0] for meta in img_elements]
-                    # check if indices provided are valid 
+                    # check if the indices provided are valid 
                     img_indices = validate_img_indices(img_num, img_indices)
-                    img_tokens = [img_tokens[i] for i in img_indices]
+                    if len(img_indices) > 0:
+                        img_tokens = [img_tokens[i] for i in img_indices]
                     print(f"fetching images")
                     print(img_tokens)
                     get_images(img_tokens)

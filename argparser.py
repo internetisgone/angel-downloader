@@ -22,7 +22,7 @@ parser.add_argument(
     "-i", 
     "--indices", 
     dest = "indices",
-    default = [0], 
+    default = [], 
     nargs = "+",
     type = int,
     required = False,
