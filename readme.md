@@ -33,8 +33,8 @@ basic usage
 
 option `-i` to specify image indices
 ```
-# download the 1st, 2nd, and last image
-./angel.sh https://link.to.xhs.post -i 1 2 -1
+# download the 1st and 2nd image
+./angel.sh https://link.to.xhs.post -i 1 2 
 ```
 
 option `-s` to sanitize the url without downloading anything
