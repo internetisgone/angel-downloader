@@ -31,6 +31,7 @@ basic usage
 ./angel.sh https://link.to.xhs.post
 ```
 <br>
+
 options:
 `-i` to specify image indices
 ```
