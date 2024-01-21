@@ -6,17 +6,17 @@
 。 ☆。    ☆  。   ☆。
 
 ```
-simple python command line tool that downloads xiaohongshu images and videos in the highest quality possible.<br>
+simple command line tool for downloading xiaohongshu images and videos in the highest quality possible. written in python.<br>
 
-inspired by https://github.com/iawia002/lux and https://github.com/JoeanAmier/XHS-Downloader<br>
+inspired by https://github.com/iawia002/lux and https://github.com/JoeanAmier/XHS-Downloader.<br>
 
-## setup
-either
+## setup and run
+either execute via the shell script `angel`
 ```
-chmod +x angel.sh
-./angel.sh https://link.to.xhs.post [options]
+chmod +x angel
+./angel https://link.to.xhs.post [options]
 ```
-or
+or run `main.py` directly
 ```
 python3 -m venv .venv
 source .venv/bin/activate
@@ -25,29 +25,30 @@ python3 main.py https://link.to.xhs.post [options]
 ```
 
 ## usage
-basic usage
+basic usage:
 ```
 # download all images or video in a post
-./angel.sh https://link.to.xhs.post
+./angel https://link.to.xhs.post
 ```
 <br>
 
-options:
+options:<br>
 `-i` to specify image indices
 ```
 # download the 1st and 2nd image
-./angel.sh https://link.to.xhs.post -i 1 2 
+./angel https://link.to.xhs.post -i 1 2 
 ```
 `-s` to sanitize the url without downloading anything
 ```
 # returns full url to the post, removing tracking components
-./angel.sh https://link.to.xhs.post -s
+./angel https://link.to.xhs.post -s
 ```
 `-h` to show help
 ```
-./angel.sh -h  
+./angel -h  
 ```
 
 ## todo
-all kinds of exception handling<br>
-add support for negative indices (-1 leads to the last img)
+- all kinds of exception handling!!
+- support for negative indices (-1 leads to the last img)
+- shell script for windows 

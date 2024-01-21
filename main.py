@@ -3,8 +3,8 @@ import random
 import requests
 from pathlib import Path
 from bs4 import BeautifulSoup
+import re
 import json
-# import mimetypes
 from argparser import parser
 
 PROXIES = None
@@ -22,33 +22,44 @@ CHUNK_SIZE = 777777
 
 DOWNLOAD_PATH = "downloads"
 
-def main():
-    # create a downloads dir if doesn't exist
-    Path(DOWNLOAD_PATH).mkdir(exist_ok = True) 
+URL_PATTERN = re.compile(r"xiaohongshu\.com/((explore)|(discovery/item))/[a-z0-9]+")
+URL_PATTERN_SHORT = re.compile(r"xhslink\.com/[A-Za-z0-9]+")
 
+def main():
     args = parser.parse_args()
+
     # print(args.url)
     # print(args.indices)
     # print(type(args.indices))
     # print(args.sanitize)
 
     url = process_url(args.url)
+    if not url:
+        print(f"｡ﾟ･ (>_<) ･ﾟ｡ invalid url {args.url}")
+        return
 
     if args.sanitize == True:
         print(url)
     else:
+        # create a downloads dir if doesn't exist
+        Path(DOWNLOAD_PATH).mkdir(exist_ok = True) 
         get_page_content(url, args.indices)
 
-def process_url(url) -> str:
-    # todo check w regex
-    # sanitize if needed
-    url = url.split("?", 1)[0] 
-    url = sanitize_url(url)
-    # raise err if invalid
-    return url
+def process_url(url):
+    if u := URL_PATTERN.search(url):
+        return "https://www." + u.group()
+    elif u := URL_PATTERN_SHORT.search(url):
+        return sanitize_url("http://" + u.group())
+    else:
+        return None
 
 def sanitize_url(ugly_url) -> str:
-    response = requests.get(ugly_url, allow_redirects = False)
+    response = requests.get(
+        ugly_url, 
+        proxies = PROXIES,
+        allow_redirects = False,
+        timeout = TIMEOUT
+    )
     url = response.headers["Location"]
     url = url.split("?", 1)[0] 
     return url
