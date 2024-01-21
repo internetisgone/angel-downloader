@@ -8,6 +8,15 @@ import json
 from argparser import parser
 
 PROXIES = None
+HEADERS = None
+
+# PROXIES = {
+#     "https": "127.0.0.1:1087"
+# }
+# HEADERS = {
+#     "user-agent": "angel"
+# }
+
 TIMEOUT = 10
 SLEEP_INTERVAL_MIN = 2
 SLEEP_INTERVAL_MAX = 5
@@ -56,8 +65,9 @@ def sanitize_url(ugly_url) -> str:
     response = requests.get(
         ugly_url, 
         proxies = PROXIES,
-        allow_redirects = False,
-        timeout = TIMEOUT
+        headers = HEADERS,
+        timeout = TIMEOUT,
+        allow_redirects = False
     )
     url = response.headers["Location"]
     url = url.split("?", 1)[0] 
@@ -73,7 +83,12 @@ def validate_img_indices(num, indices) -> list:
 def get_page_content(url, img_indices):
     print(f"getting {url} pls be patient...")
     try: 
-        response = requests.get(url, proxies = PROXIES, timeout = TIMEOUT)
+        response = requests.get(
+            url, 
+            proxies = PROXIES, 
+            headers = HEADERS,  
+            timeout = TIMEOUT
+        )
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
 
@@ -120,6 +135,7 @@ def get_page_content(url, img_indices):
                     print(f"fetching images")
                     print(img_tokens)
                     get_images(img_tokens)
+                    # todo fall back to watermarked ver
 
         else:
             print(f"｡ﾟ･ (>_<) ･ﾟ｡ failed to fetch {url}. status code {response.status_code}")
@@ -134,7 +150,13 @@ def get_images(tokens):
     for index, token in enumerate(tokens):
         try:
             url = BASE_URL_IMG + token + IMG_QUERY_STR
-            with requests.get(url, proxies = PROXIES, timeout = TIMEOUT, stream = True) as response:
+            with requests.get(
+                url, 
+                proxies = PROXIES, 
+                headers = HEADERS, 
+                timeout = TIMEOUT, 
+                stream = True
+            ) as response:
                 if response.status_code == 200:
                     name = token + IMG_EXT
                     with open(DOWNLOAD_PATH + "/" + name, "wb") as f:
@@ -155,7 +177,13 @@ def get_images(tokens):
 
 def get_video(url) -> bool:
     try:
-        with requests.get(url, proxies = PROXIES, timeout = TIMEOUT, stream = True) as response:
+        with requests.get(
+            url, 
+            proxies = PROXIES, 
+            timeout = TIMEOUT, 
+            headers = HEADERS, 
+            stream = True
+        ) as response:
             if response.status_code == 200:
                 name = url.split('/')[-1].split("?", 1)[0] + VID_EXT
                 with open(DOWNLOAD_PATH + "/" + name, "wb") as f:
