@@ -35,20 +35,15 @@ basic usage:
 options:<br>
 `-i` to specify image indices
 ```
-# download the 1st and 2nd image
-./angel https://link.to.xhs.post -i 1 2 
+# download the 1st, 2nd, and last image
+./angel https://link.to.xhs.post -i 1 2 -1
 ```
 `-s` to sanitize the url without downloading anything
 ```
-# returns full url to the post, removing tracking components
+# get full url to the post, removing tracking components
 ./angel https://link.to.xhs.post -s
 ```
 `-h` to show help
 ```
 ./angel -h  
 ```
-
-## todo
-- all kinds of exception handling!!
-- support for negative indices (-1 leads to the last img)
-- shell script for windows 
