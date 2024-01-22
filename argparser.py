@@ -1,15 +1,18 @@
 import argparse
 
 parser = argparse.ArgumentParser(
-    prog = 
+    formatter_class = argparse.RawDescriptionHelpFormatter,
+    prog = "./angel",
+    description =
 r"""
 。 ☆ 。   ☆。     ☆  。
  ☆。\     |     ／。 ☆
    angel downloader
 ☆。 /     |     \ 。 ☆ 
 。 ☆。    ☆  。   ☆。
-""", 
-    description = "download xiaohongshu images and videos in the highest quality possible",
+
+download high quality xiaohongshu images and videos
+""",
 )
 
 parser.add_argument(
@@ -26,7 +29,7 @@ parser.add_argument(
     nargs = "+",
     type = int,
     required = False,
-    help = "indices of images to download. defaults to 0 which will download all images. supports negative indices."
+    help = "indices of images to download. supports negative indices. if no indices are given, all images will be downloaded."
 ) 
 
 parser.add_argument(

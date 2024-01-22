@@ -61,6 +61,7 @@ def validate_url(url):
     else:
         return None
 
+# get the redirected url of a short url
 def sanitize_url(ugly_url) -> str:
     response = requests.get(
         ugly_url, 
@@ -70,7 +71,7 @@ def sanitize_url(ugly_url) -> str:
         allow_redirects = False
     )
     url = response.headers["Location"]
-    url = url.split("?", 1)[0] 
+    url = url.split("?", 1)[0] # remove tracking components 
     return url
 
 def validate_img_indices(num, indices) -> list:
@@ -98,6 +99,7 @@ def get_page_content(url, img_indices):
                 print(f"found {len(vid_elements)} video(s)")
 
                 # try parse json and get watermark-free vid
+                # <script>window.__INITIAL_STATE__={ json_that_contains_vid_key }</script>
                 scripts = soup.find_all("script", src = False, string = True)
                 result = None
                 try: 
@@ -135,7 +137,7 @@ def get_page_content(url, img_indices):
                     print(f"fetching images")
                     print(img_tokens)
                     get_images(img_tokens)
-                    # todo fall back to watermarked ver
+                    # todo fall back to jpg 
 
         else:
             print(f"｡ﾟ･ (>_<) ･ﾟ｡ failed to fetch {url}. status code {response.status_code}")
