@@ -24,6 +24,7 @@ pip3 install -r requirements.txt
 python3 main.py url [options]
 ```
 <br>
+
 it is recommended that you use a proxy.<br>
 change `PROXIES` in `main.py` to something like
 ```
@@ -37,6 +38,7 @@ basic usage:
 ./angel https://link.to.xhs.post
 ```
 <br>
+
 options:<br>
 `-i` to specify image indices
 ```
