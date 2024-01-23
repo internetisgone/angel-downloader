@@ -14,14 +14,20 @@ inspired by https://github.com/iawia002/lux and https://github.com/JoeanAmier/XH
 either execute via the shell script `angel`
 ```
 chmod +x angel
-./angel https://link.to.xhs.post [options]
+./angel url [options]
 ```
 or run `main.py` directly
 ```
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-python3 main.py https://link.to.xhs.post [options]
+pip3 install -r requirements.txt
+python3 main.py url [options]
+```
+<br>
+it is recommended that you use a proxy.<br>
+change `PROXIES` in `main.py` to something like
+```
+PROXIES = { "https": "127.0.0.1:1087" }
 ```
 
 ## usage
@@ -31,7 +37,6 @@ basic usage:
 ./angel https://link.to.xhs.post
 ```
 <br>
-
 options:<br>
 `-i` to specify image indices
 ```
