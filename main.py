@@ -99,21 +99,25 @@ def get_page_content(url, img_indices):
                 print(f"found {len(vid_elements)} video(s)")
 
                 # try parse json and get watermark-free vid
-                # <script>window.__INITIAL_STATE__={ json_that_contains_vid_key }</script>
-                scripts = soup.find_all("script", src = False, string = True)
                 result = None
+                scripts = soup.find_all("script", src = False, string = True)
                 try: 
-                    data_raw = scripts[-1].string
-                    data_raw = data_raw.encode().decode("utf-8")
-                    data_raw = data_raw.split("window.__INITIAL_STATE__=", 1)[1].replace("undefined", '""')
-                    data = json.loads(data_raw)
-                    # print("----------------------------------")
-                    # print(repr(data))
-                    # print("----------------------------------")
-                    note_id = data["note"]["firstNoteId"]
-                    vid_key = data["note"]["noteDetailMap"][note_id]["note"]["video"]["consumer"]["originVideoKey"]
-                    print(vid_key)
-                    result = get_video(BASE_URL_VID + vid_key)
+                    data_raw = None
+                    for script in scripts:
+                        if "window.__INITIAL_STATE__=" in script.string:
+                            data_raw = script.string.encode().decode("utf-8")
+                    if data_raw:
+                        data_raw = data_raw.split("window.__INITIAL_STATE__=", 1)[1].replace("undefined", '""')
+                        data = json.loads(data_raw)
+                        # print("----------------------------------")
+                        # print(repr(data))
+                        # print("----------------------------------")
+                        note_id = data["note"]["firstNoteId"]
+                        vid_key = data["note"]["noteDetailMap"][note_id]["note"]["video"]["consumer"]["originVideoKey"]
+                        print(vid_key)
+                        result = get_video(BASE_URL_VID + vid_key)
+                    else:
+                        print(f"json not found")
                 except Exception as e:
                     print(e)
 
