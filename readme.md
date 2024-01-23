@@ -37,8 +37,6 @@ basic usage:
 # download all images or video in a post
 ./angel https://link.to.xhs.post
 ```
-<br>
-
 options:<br>
 `-i` to specify image indices
 ```
