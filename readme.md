@@ -52,3 +52,7 @@ options:<br>
 ```
 ./angel -h  
 ```
+
+## todo
+- use session (reuse a tcp connection for every request)
+- save metadata
