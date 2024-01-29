@@ -55,3 +55,5 @@ options:<br>
 
 ## todo
 - save metadata
+- use a config file
+- package the whole thing
