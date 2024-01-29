@@ -8,7 +8,7 @@ import json
 from argparser import parser
 
 PROXIES = None
-HEADERS = None
+HEADERS = { }
 
 # PROXIES = {
 #     "https": "127.0.0.1:1087"
@@ -18,8 +18,8 @@ HEADERS = None
 # }
 
 TIMEOUT = 10
-SLEEP_INTERVAL_MIN = 2
-SLEEP_INTERVAL_MAX = 5
+SLEEP_INTERVAL_MIN = 1
+SLEEP_INTERVAL_MAX = 3
 
 BASE_URL_IMG = "https://ci.xiaohongshu.com/"
 IMG_QUERY_STR = "?imageView2/2/w/format/png"
@@ -82,12 +82,13 @@ def validate_img_indices(num, indices) -> list:
     return indices
 
 def get_page_content(url, img_indices):
+    session = requests.Session()
+    session.headers.update(HEADERS)
     print(f"getting {url} pls be patient...")
     try: 
-        response = requests.get(
+        response = session.get(
             url, 
             proxies = PROXIES, 
-            headers = HEADERS,  
             timeout = TIMEOUT
         )
         if response.status_code == 200:
@@ -115,7 +116,7 @@ def get_page_content(url, img_indices):
                         note_id = data["note"]["firstNoteId"]
                         vid_key = data["note"]["noteDetailMap"][note_id]["note"]["video"]["consumer"]["originVideoKey"]
                         print(vid_key)
-                        result = get_video(BASE_URL_VID + vid_key)
+                        result = get_video(session, BASE_URL_VID + vid_key)
                     else:
                         print(f"json not found")
                 except Exception as e:
@@ -125,7 +126,7 @@ def get_page_content(url, img_indices):
                     # fall back to watermarked ver
                     vid_url = vid_elements[0]["content"]
                     print(f"falling back to watermarked video {vid_url}")
-                    get_video(vid_url)
+                    get_video(session, vid_url)
  
             # get img
             else:       
@@ -140,7 +141,7 @@ def get_page_content(url, img_indices):
                         img_tokens = [img_tokens[i] for i in img_indices]
                     print(f"fetching images")
                     print(img_tokens)
-                    get_images(img_tokens)
+                    get_images(session, img_tokens)
                     # todo fall back to jpg 
 
         else:
@@ -152,14 +153,13 @@ def get_page_content(url, img_indices):
         print(f"｡ﾟ･ (>_<) ･ﾟ｡ something went with {url} : {e}")
         return
     
-def get_images(tokens):
+def get_images(session, tokens):
     for index, token in enumerate(tokens):
         try:
             url = BASE_URL_IMG + token + IMG_QUERY_STR
-            with requests.get(
+            with session.get(
                 url, 
-                proxies = PROXIES, 
-                headers = HEADERS, 
+                proxies = PROXIES,
                 timeout = TIMEOUT, 
                 stream = True
             ) as response:
@@ -181,13 +181,12 @@ def get_images(tokens):
         except Exception as e:
             print(f"｡ﾟ･ (>_<) ･ﾟ｡ something went with {url} : {e}")
 
-def get_video(url) -> bool:
+def get_video(session, url) -> bool:
     try:
-        with requests.get(
+        with session.get(
             url, 
             proxies = PROXIES, 
             timeout = TIMEOUT, 
-            headers = HEADERS, 
             stream = True
         ) as response:
             if response.status_code == 200:

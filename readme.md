@@ -8,7 +8,7 @@
 ```
 simple command line tool for downloading xiaohongshu images and videos in the highest quality possible. written in python.<br>
 
-inspired by https://github.com/iawia002/lux and https://github.com/JoeanAmier/XHS-Downloader.<br>
+inspired by [lux](https://github.com/iawia002/lux) and [xhs-downloader](https://github.com/JoeanAmier/XHS-Downloader). neither fully meets my needs so i wrote angel downloader :D<br>
 
 ## setup and run
 either execute via the shell script `angel`
@@ -54,5 +54,4 @@ options:<br>
 ```
 
 ## todo
-- use session (reuse a tcp connection for every request)
 - save metadata
