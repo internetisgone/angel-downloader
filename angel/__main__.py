@@ -5,17 +5,10 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import re
 import json
-from argparser import parser
+from angel.argparser import parser
 
 PROXIES = None
 HEADERS = { }
-
-# PROXIES = {
-#     "https": "127.0.0.1:1087"
-# }
-# HEADERS = {
-#     "user-agent": "angel"
-# }
 
 TIMEOUT = 10
 SLEEP_INTERVAL_MIN = 1

@@ -2,3 +2,5 @@
 /downloads
 .DS_Store
 __pycache__
+/angel.egg-info
+.vscode
