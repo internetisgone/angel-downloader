@@ -1,3 +1,6 @@
+## downloading no longer works cuz of anti-bot measures. archiving the repo for now, might come back to it later. the -s (--sanitize-only) option is not affected 
+## im also using [this shell script](https://gist.github.com/internetisgone/22e296dbb541eb6e73486568230bd9ff) to sanitize links
+
 ```
 。 ☆ 。   ☆。     ☆  。
  ☆。\     |     ／。 ☆
@@ -36,18 +39,18 @@ python3 -m angel [url] [options]
 basic usage:
 ```
 # download all images or video in a post
-./a https://link.to.xhs.post
+./a https://xhslink.com/gnome
 ```
 options:<br>
 `-i` to specify image indices
 ```
 # download the 1st, 2nd, and last image
-./a https://link.to.xhs.post -i 1 2 -1
+./a https://xhslink.com/gnome -i 1 2 -1
 ```
-`-s` to sanitize the url without downloading anything
+`-s` to sanitize a short url without downloading anything
 ```
 # get full url to the post, removing tracking components
-./a https://link.to.xhs.post -s
+./a https://xhslink.com/gnome -s
 ```
 `-h` to show help
 ```
