@@ -29,7 +29,7 @@ parser.add_argument(
     nargs = "+",
     type = int,
     required = False,
-    help = "indices of images to download. supports negative indices. if no indices are given, all images will be downloaded."
+    help = "indices of images to download. supports negative indices. if no indices are given, all images will be downloaded"
 ) 
 
 parser.add_argument(
@@ -39,5 +39,5 @@ parser.add_argument(
     default = False,
     required = False,
     action = "store_true",
-    help = "get the sanitized url without downloading anything."
+    help = "get the sanitized url without downloading anything"
 )

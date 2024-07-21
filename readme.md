@@ -1,6 +1,3 @@
-## downloading no longer works cuz of anti-bot measures. archiving the repo for now, might come back to it later. the -s (--sanitize-only) option is not affected 
-## im also using [this shell script](https://gist.github.com/internetisgone/22e296dbb541eb6e73486568230bd9ff) to sanitize links
-
 ```
 。 ☆ 。   ☆。     ☆  。
  ☆。\     |     ／。 ☆
@@ -13,27 +10,27 @@ simple command line tool for downloading xiaohongshu images and videos in the hi
 
 inspired by [lux](https://github.com/iawia002/lux) and [xhs-downloader](https://github.com/JoeanAmier/XHS-Downloader). neither fully meets my needs so i wrote angel downloader :D<br>
 
-## install and run
-install from wheel
+## setup
+either install from wheel
 ```
-pip install dist/angel-0.1.0-py3-none-any.whl
+pip install angel-0.2.0-py3-none-any.whl
 ```
 or build from source
 ```
 pip install build
 python3 -m build
 ```
-
-then either execute via the shell script `a`
+edit `config.json` accordingly
+## run
+as a package
+```
+python3 -m angel [url] [options]
+```
+or via the shell script `a`
 ```
 chmod +x a
 ./a [url] [options]
 ```
-or as a package
-```
-python3 -m angel [url] [options]
-```
-<br>
 
 ## usage
 basic usage:
@@ -45,12 +42,12 @@ options:<br>
 `-i` to specify image indices
 ```
 # download the 1st, 2nd, and last image
-./a https://xhslink.com/gnome -i 1 2 -1
+./a -i 1 2 -1 https://xhslink.com/gnome 
 ```
 `-s` to sanitize a short url without downloading anything
 ```
 # get full url to the post, removing tracking components
-./a https://xhslink.com/gnome -s
+./a -s https://xhslink.com/gnome
 ```
 `-h` to show help
 ```
@@ -58,4 +55,7 @@ options:<br>
 ```
 ## todo
 - save metadata
-- use a config file
+- ~~use a config file~~
+
+## misc
+for simply sanitizing links, [this shell script](https://gist.github.com/internetisgone/22e296dbb541eb6e73486568230bd9ff) and [this resolver](https://github.com/usexhs/xhs-link) can also come in handy
