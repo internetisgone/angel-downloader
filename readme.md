@@ -13,7 +13,7 @@ inspired by [lux](https://github.com/iawia002/lux) and [xhs-downloader](https://
 ## setup
 either install from wheel
 ```
-pip install angel-0.2.0-py3-none-any.whl
+pip install dist/angel-0.2.0-py3-none-any.whl
 ```
 or build from source
 ```
